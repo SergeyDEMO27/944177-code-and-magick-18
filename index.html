@@ -207,85 +207,61 @@ var GAP = 10;
 var FONT_GAP = 30;
 var TEXT_WIDTH = 50;
 var BAR_WIDTH = 40;
-var BAR_Y = 80;
-var barHeight = [];
+var BAR_HEIGHT = 150;
+var BAR_GAP = 50;
 
 var renderCloud = function(ctx, x, y, color) {
   ctx.fillStyle = color;
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
 };
 
+var titleText = function(ctx, text, y) {
+  ctx.fillStyle = '#000000';
+  ctx.font = '16px PT Mono';
+  ctx.fillText(text, CLOUD_X + FONT_GAP, y);
+};
+
+var barColor = function(ctx, players, index) {
+  if (players[index] === 'Вы') {
+    ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+  }
+  else {
+    ctx.fillStyle = 'hsla(232, 100%, 35%, ' + Math.random() +')';
+  }
+};
+
+var barPosition = function(ctx, times, index, width) {
+  ctx.fillRect(CLOUD_X + BAR_GAP * index * 1.8 + TEXT_WIDTH, CLOUD_HEIGHT - Math.round(BAR_HEIGHT * times[index]) / getMaxElement(times) - FONT_GAP, width, Math.round((BAR_HEIGHT * times[index]) / getMaxElement(times)));
+};
+
+var barTextPosition = function(ctx, text, y, index) {
+  ctx.fillStyle = '#000000';
+  ctx.fillText(text, CLOUD_X + BAR_GAP * index * 1.8 + TEXT_WIDTH, y);
+}
+
+var getMaxElement = function(arr) {
+  var maxElement = arr[0];
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] > maxElement) {
+      maxElement = arr[i];
+    }
+  }
+  return maxElement;
+};
+
 window.renderStatistics = function(ctx, names, times) {
   renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#ffffff');
 
-  ctx.fillStyle = '#000000';
-  ctx.font = '16px PT Mono';
-  ctx.fillText('Ура вы победили!', CLOUD_X + FONT_GAP, CLOUD_Y + FONT_GAP);
-  ctx.fillText('Список результатов:', CLOUD_X + FONT_GAP , CLOUD_Y + FONT_GAP + FONT_GAP * 0.7);
+  titleText(ctx,'Ура вы победили!', CLOUD_Y + FONT_GAP);
+  titleText(ctx,'Список результатов:', CLOUD_Y + FONT_GAP + GAP * 2);
 
-var getMaxElement = function(array) {
-  for (var i = 0; i < array.length - 1; i++) {
-    var minValue = array[i];
-    for (var j = i + 1; j < array.length; j++) {
-      if (array[j] < minValue) {
-        minValue = array[j];
-        var swap = array[i];
-        array[i] = minValue;
-        array[j] = swap;
-      }
-    }
-  }
-  return array;
+for (var i = 0; i < names.length; i++) {
+    barColor(ctx, names, i);
+    barPosition(ctx, times, i, BAR_WIDTH);
+    barTextPosition(ctx, names[i], CLOUD_HEIGHT - GAP, i);
+    barTextPosition(ctx, Math.round(times[i]), CLOUD_HEIGHT - Math.round(BAR_HEIGHT * times[i]) / getMaxElement(times) - FONT_GAP - GAP, i);
 };
-var sortedArray = getMaxElement(times);
-
-var getHeight = function(heights) {
-for (var i = 0; i < heights.length - 1; i++) {
-  barHeight[i] = Math.round((150 * heights[i]) / heights[heights.length - 1]);
-}
-barHeight[heights.length - 1] = 150;
-return barHeight
-}
-var barHeights = getHeight(sortedArray);
-
-var getTitlePosition = function(titles) {
-  var barGap = 50;
-  var barGapX = 50;
-  for (var i = 0; i < titles.length; i++) {
-  ctx.fillText(titles[i], CLOUD_X + barGapX, CLOUD_HEIGHT - GAP);
-  barGapX += barGap + BAR_WIDTH;
-}
-};
-getTitlePosition(names);
-
-var getTimePosition = function(points, heights) {
-  var barGap = 50;
-  var barGapX = 50;
-  for (var i = 0; i < points.length; i++) {
-    ctx.fillText( Math.round(points[i]), CLOUD_X + barGapX, CLOUD_HEIGHT - heights[i] - FONT_GAP - GAP);
-    barGapX += barGap + BAR_WIDTH;
-}
-};
-getTimePosition(times, barHeights);
-
-var getBarColorAndPosition = function(heights, items, firstColor, secondColor) {
-  var barGap = 50;
-  var barGapX = 50;
-  for (var i = 0; i < heights.length; i++) {
-    if (items[i] === 'Вы') {
-      ctx.fillStyle = firstColor;
-      ctx.fillRect(CLOUD_X + barGapX, CLOUD_HEIGHT - heights[i] - FONT_GAP, BAR_WIDTH, heights[i]);
-      barGapX += barGap + BAR_WIDTH;
-    }
-    else {
-    ctx.fillStyle = secondColor + ',' + Math.random() +')';
-    ctx.fillRect(CLOUD_X + barGapX, CLOUD_HEIGHT - heights[i] - FONT_GAP, BAR_WIDTH, heights[i]);
-    barGapX += barGap + BAR_WIDTH;
-  }
-}
-};
-getBarColorAndPosition(barHeights, names, 'rgba(255, 0, 0, 1)', 'hsla(232, 100%, 35%');
 };
 </script>
 
