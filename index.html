@@ -215,13 +215,13 @@ var renderCloud = function(ctx, x, y, color) {
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
 };
 
-var titleText = function(ctx, text, y) {
+var renderTitleText = function(ctx, text, y) {
   ctx.fillStyle = '#000000';
   ctx.font = '16px PT Mono';
   ctx.fillText(text, CLOUD_X + FONT_GAP, y);
 };
 
-var barColor = function(ctx, players, index) {
+var getBarColor = function(ctx, players, index) {
   if (players[index] === 'Вы') {
     ctx.fillStyle = 'rgba(255, 0, 0, 1)';
   }
@@ -230,11 +230,11 @@ var barColor = function(ctx, players, index) {
   }
 };
 
-var barPosition = function(ctx, times, index, width) {
+var renderBar = function(ctx, times, index, width) {
   ctx.fillRect(CLOUD_X + BAR_GAP * index * 1.8 + TEXT_WIDTH, CLOUD_HEIGHT - Math.round(BAR_HEIGHT * times[index]) / getMaxElement(times) - FONT_GAP, width, Math.round((BAR_HEIGHT * times[index]) / getMaxElement(times)));
 };
 
-var barTextPosition = function(ctx, text, y, index) {
+var renderBarText = function(ctx, text, y, index) {
   ctx.fillStyle = '#000000';
   ctx.fillText(text, CLOUD_X + BAR_GAP * index * 1.8 + TEXT_WIDTH, y);
 }
@@ -253,14 +253,14 @@ window.renderStatistics = function(ctx, names, times) {
   renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#ffffff');
 
-  titleText(ctx,'Ура вы победили!', CLOUD_Y + FONT_GAP);
-  titleText(ctx,'Список результатов:', CLOUD_Y + FONT_GAP + GAP * 2);
+  renderTitleText(ctx,'Ура вы победили!', CLOUD_Y + FONT_GAP);
+  renderTitleText(ctx,'Список результатов:', CLOUD_Y + FONT_GAP + GAP * 2);
 
 for (var i = 0; i < names.length; i++) {
-    barColor(ctx, names, i);
-    barPosition(ctx, times, i, BAR_WIDTH);
-    barTextPosition(ctx, names[i], CLOUD_HEIGHT - GAP, i);
-    barTextPosition(ctx, Math.round(times[i]), CLOUD_HEIGHT - Math.round(BAR_HEIGHT * times[i]) / getMaxElement(times) - FONT_GAP - GAP, i);
+    getBarColor(ctx, names, i);
+    renderBar(ctx, times, i, BAR_WIDTH);
+    renderBarText(ctx, names[i], CLOUD_HEIGHT - GAP, i);
+    renderBarText(ctx, Math.round(times[i]), CLOUD_HEIGHT - Math.round(BAR_HEIGHT * times[i]) / getMaxElement(times) - FONT_GAP - GAP, i);
 };
 };
 </script>
