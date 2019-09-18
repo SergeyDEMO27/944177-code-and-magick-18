@@ -11,22 +11,22 @@ var coatColors = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)
 var eyesColors = ['black', 'red', 'blue', 'yellow', 'green'];
 var requiredWizards = 4;
 
-var randomGenerator = function(array) {
-var randomItem = array[Math.floor(Math.random()*array.length)];
-return randomItem;
+var randomGenerator = function (array) {
+  var randomItem = array[Math.floor(Math.random() * array.length)];
+  return randomItem;
 };
 
-var getWizards = function(requiredWizards) {
+var getWizards = function (wizardCount) {
   var wizards = [];
-  for (var i = 0; i < requiredWizards; i++) {
+  for (var i = 0; i < wizardCount; i++) {
     var wizard = {
       name: randomGenerator(names) + randomGenerator(surnames),
       coatColor: randomGenerator(coatColors),
       eyesColor: randomGenerator(eyesColors)
     };
     wizards.push(wizard);
-};
-return wizards
+  }
+  return wizards;
 };
 var wizards = getWizards(requiredWizards);
 
@@ -38,7 +38,7 @@ var renderWizard = function (wizard) {
   wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
 
   return wizardElement;
-}
+};
 
 var fragment = document.createDocumentFragment();
 for (var i = 0; i < wizards.length; i++) {
