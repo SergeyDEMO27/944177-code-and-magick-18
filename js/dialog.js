@@ -3,6 +3,7 @@
 (function () {
 
   var userDialog = document.querySelector('.setup');
+  var form = userDialog.querySelector('.setup-wizard-form');
   var setupOpen = document.querySelector('.setup-open');
   var setupClose = document.querySelector('.setup-close');
   var nameUser = document.querySelector('.setup-user-name');
@@ -96,5 +97,12 @@
     if (evt.keyCode === ENTER_KEYCODE) {
       closePopup();
     }
+  });
+
+  form.addEventListener('submit', function (evt) {
+    window.backendSave(new FormData(form), function () {
+      userDialog.classList.add('hidden');
+    });
+    evt.preventDefault();
   });
 })();
