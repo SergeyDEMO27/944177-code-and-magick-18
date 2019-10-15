@@ -25,7 +25,7 @@
     xhr.send(data);
   };
 
-  window.backendLoad = function (onLoad, onError) {
+  window.backendLoad = function (URL, onLoad, onError) {
     var URL = 'https://js.dump.academy/code-and-magick/data';
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
