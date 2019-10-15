@@ -2,7 +2,7 @@
 (function () {
   var similarListElement = document.querySelector('.setup-similar-list');
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-  var setupWizard = document.querySelector('.setup-wizard');
+  // var setupWizard = document.querySelector('.setup-wizard');
   var setupPlayer = document.querySelector('.setup-player');
 
   // var names = ['Иван ', 'Хуан Себастьян ', 'Мария ', 'Кристоф ', 'Виктор ', 'Юлия ', 'Люпита ', 'Вашингтон '];
@@ -37,26 +37,24 @@
   };
 
   window.render = function (data) {
-      var takeNumber = data.length > 4 ? 4 : data.length;
-      similarListElement.innerHTML = '';
-      var fragment = document.createDocumentFragment();
-      for (var i = 0; i < takeNumber; i++) {
-        fragment.appendChild(renderWizard((data[i])));
-      }
-      similarListElement.appendChild(fragment);
+    var takeNumber = data.length > 4 ? 4 : data.length;
+    similarListElement.innerHTML = '';
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < takeNumber; i++) {
+      fragment.appendChild(renderWizard((data[i])));
+    }
+    similarListElement.appendChild(fragment);
 
-      document.querySelector('.setup-similar').classList.remove('hidden');
+    document.querySelector('.setup-similar').classList.remove('hidden');
 
-      // setupWizard.querySelector('.wizard-coat').addEventListener('click', function () {
-      //   setupWizard.querySelector('.wizard-coat').style.fill = window.util.randomGenerator(coatColors);
-      // });
-      //
-      // setupWizard.querySelector('.wizard-eyes').addEventListener('click', function () {
-      //   setupWizard.querySelector('.wizard-eyes').style.fill = window.util.randomGenerator(eyesColors);
-      // });
-      //
-      setupPlayer.querySelector('.setup-fireball-wrap').addEventListener('click', function () {
-        setupPlayer.querySelector('.setup-fireball-wrap').style.background = window.util.randomGenerator(fireballColors);
-      });
-};
+    // setupWizard.querySelector('.wizard-coat').addEventListener('click', function () {
+    //   setupWizard.querySelector('.wizard-coat').style.fill = window.util.randomGenerator(coatColors);
+    // });
+    // setupWizard.querySelector('.wizard-eyes').addEventListener('click', function () {
+    //   setupWizard.querySelector('.wizard-eyes').style.fill = window.util.randomGenerator(eyesColors);
+    // });
+    setupPlayer.querySelector('.setup-fireball-wrap').addEventListener('click', function () {
+      setupPlayer.querySelector('.setup-fireball-wrap').style.background = window.util.randomGenerator(fireballColors);
+    });
+  };
 })();

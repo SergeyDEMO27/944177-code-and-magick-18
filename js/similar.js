@@ -15,7 +15,7 @@
     }
 
     return rank;
-  }
+  };
 
   var namesComparator = function (left, right) {
     if (left > right) {
@@ -25,7 +25,7 @@
     } else {
       return 0;
     }
-  }
+  };
 
   var updateWizards = function () {
     window.render(wizards.sort(function (left, right) {
@@ -35,7 +35,7 @@
       }
       return rankDiff;
     }));
-  }
+  };
 
   window.wizard.onEyesChange = window.debounce(function (color) {
     eyesColor = color;
@@ -62,7 +62,7 @@
 
     node.textContent = errorMessage;
     document.body.insertAdjacentElement('afterbegin', node);
-  }
+  };
 
   window.backendLoad(URL, successHandler, errorHandler);
 })();

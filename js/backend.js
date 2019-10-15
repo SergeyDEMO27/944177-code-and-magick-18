@@ -1,7 +1,7 @@
 'use strict';
 (function () {
   window.backendSave = function (data, onLoad, onError) {
-    var URL = 'https://js.dump.academy/code-and-magick';
+    var URLS = 'https://js.dump.academy/code-and-magick';
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
@@ -21,12 +21,12 @@
 
     xhr.timeout = 10000;
 
-    xhr.open('POST', URL);
+    xhr.open('POST', URLS);
     xhr.send(data);
   };
 
   window.backendLoad = function (URL, onLoad, onError) {
-    var URL = 'https://js.dump.academy/code-and-magick/data';
+    var URLL = 'https://js.dump.academy/code-and-magick/data';
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
@@ -46,7 +46,7 @@
 
     xhr.timeout = 10000;
 
-    xhr.open('GET', URL);
+    xhr.open('GET', URLL);
     xhr.send();
   };
 })();
